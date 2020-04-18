@@ -13,18 +13,21 @@ ADD_LIBRARY(bitcoinapi_static STATIC ${bitcoinapi_source})
 # Set output name of static library
 SET_TARGET_PROPERTIES(bitcoinapi_static PROPERTIES OUTPUT_NAME bitcoinapi)
 
+TARGET_INCLUDE_DIRECTORIES(bitcoinapi PRIVATE ${JSONCPP_INCLUDE_DIRS} ${JSONRPCCPP_INCLUDE_DIRS})
+TARGET_INCLUDE_DIRECTORIES(bitcoinapi_static PRIVATE ${JSONCPP_INCLUDE_DIRS} ${JSONRPCCPP_INCLUDE_DIRS})
+
 # Link the library with json-rpc-cpp libs
 TARGET_LINK_LIBRARIES(bitcoinapi
                         ${CURL_LIBRARY}
-                        ${JSONCPP_LIBRARY}
-                        jsonrpccpp-common
-                        jsonrpccpp-client)
+                        ${JSONCPP_LIBRARIES}
+                        ${JSONRPCCPP_COMMON_LIBRARIES}
+                        ${JSONRPCCPP_CLIENT_LIBRARIES})
 
 TARGET_LINK_LIBRARIES(bitcoinapi_static
                         ${CURL_LIBRARY}
-                        ${JSONCPP_LIBRARY}
-                        jsonrpccpp-common
-                        jsonrpccpp-client)
+                        ${JSONCPP_LIBRARIES}
+                        ${JSONRPCCPP_COMMON_LIBRARIES}
+                        ${JSONRPCCPP_CLIENT_LIBRARIES})
 
 # Set version settings
 SET(VERSION_STRING ${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION})
